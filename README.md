@@ -1,5 +1,49 @@
 # Kinesis Advantage 360 Pro ZMK Config
 
+## My overrides (tya)
+
+This branch (`V3.0-tya`) carries my personal keymap as a small set of commits on top of Kinesis's stock `V3.0` branch. Only the base layer differs from stock; the Keypad, Fn and Mod layers are unchanged.
+
+![Base layer with changes from stock highlighted](assets/tya-base-layer.png)
+
+### Remapped keys (stock key replaced)
+
+| Position | Stock | Mine |
+| --- | --- | --- |
+| Left home row, far left (Caps Lock spot) | Esc | Left Ctrl |
+| Left thumb, top-left | Left Ctrl | Left Cmd |
+| Left thumb, tall key right of Backspace | Delete | Left Ctrl |
+| Right thumb, top-left | Left Cmd | Left Ctrl |
+| Right thumb, top-right | Right Ctrl | Right Cmd |
+
+### Added keys (stock key was blank)
+
+| Position | Mine |
+| --- | --- |
+| Left inner column, right of T | Esc |
+| Left inner column, right of G | Esc |
+| Right inner column, left of Y | Volume Up |
+| Right inner column, left of H | Volume Down |
+
+Net effect: Esc moves off the home row to the left inner column, the old Caps Lock spot becomes Ctrl, Ctrl and Cmd swap in the thumb clusters, and Delete is no longer on the base layer (it's still on the Keypad layer's left thumb).
+
+All of these live in the `default_layer` block of `config/adv360.keymap`, mirrored in `config/keymap.json`.
+
+### Keeping this branch current with upstream
+
+```sh
+# one-time setup (origin = my fork, upstream = Kinesis)
+git remote add upstream https://github.com/KinesisCorporation/Adv360-Pro-ZMK.git
+
+# each update
+git fetch upstream
+git switch V3.0-tya
+git rebase upstream/V3.0
+git push --force-with-lease origin V3.0-tya
+```
+
+If the rebase conflicts in `config/adv360.keymap` or `config/keymap.json`, take upstream's version of the `default_layer` and re-apply the overrides in the tables above.
+
 ## Modifying the keymap
 
 [The ZMK documentation](https://zmk.dev/docs) covers both basic and advanced functionality and has a table of OS compatibility for keycodes. Please note that the RGB Underglow, Backlight and Power Management sections are not relevant to the Advantage 360 Pro's custom ZMK fork. For more information see [this note](#note)
